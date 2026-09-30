@@ -1,1 +1,0 @@
-# EcoIET-Tecnologia-y-Medio-Ambiente
