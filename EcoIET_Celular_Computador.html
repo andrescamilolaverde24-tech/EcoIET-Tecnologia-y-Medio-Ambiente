@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoIET - Tecnología y Medio Ambiente</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef7f0;
+            color: #17351d;
+            line-height: 1.6;
+            overflow-x:hidden;
+        }
+
+        /* =========================
+           ENCABEZADO
+        ========================= */
+
+        header {
+            background: linear-gradient(135deg, #0c5730, #4caf50);
+            color: white;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 19px;
+        }
+
+        .subtitulo {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        /* =========================
+           MENÚ
+        ========================= */
+
+        nav {
+            background: #123d23;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 13px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav button {
+            border: none;
+            background: white;
+            color: #174b29;
+            padding: 12px 17px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        nav button:hover {
+            transform: translateY(-2px);
+            background: #dff2df;
+        }
+
+        /* =========================
+           SECCIONES
+        ========================= */
+
+        .seccion {
+            display: none;
+            max-width: 1150px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .seccion.activa {
+            display: block;
+        }
+
+        .titulo {
+            text-align: center;
+            color: #176b3a;
+            font-size: 34px;
+            margin-bottom: 25px;
+        }
+
+        .intro {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .intro h2 {
+            color: #176b3a;
+            margin-bottom: 10px;
+        }
+
+        .intro p {
+            margin-bottom: 10px;
+        }
+
+        /* =========================
+           TARJETAS
+        ========================= */
+
+        .contenedor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .tarjeta {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: 0.25s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+        }
+
+        .tarjeta h3 {
+            color: #176b3a;
+            margin: 12px 0;
+        }
+
+        .icono {
+            font-size: 65px;
+        }
+
+        /* =========================
+           LISTAS
+        ========================= */
+
+        .lista {
+            margin-top: 15px;
+            padding-left: 22px;
+            text-align: left;
+        }
+
+        .lista li {
+            margin-bottom: 9px;
+        }
+
+        /* =========================
+           BOTONES
+        ========================= */
+
+        .boton {
+            border: none;
+            background: #238b50;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .boton:hover {
+            background: #176b3a;
+        }
+
+        .centrado {
+            text-align: center;
+        }
+
+        /* =========================
+           ECO RETO
+        ========================= */
+
+        #juego {
+            background: white;
+            max-width: 850px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 7px 20px rgba(0,0,0,0.1);
+        }
+
+        #ilustracion {
+            width: 100%;
+            min-height: 230px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eef8ef;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        #ilustracion svg {
+            width: 300px;
+            height: 220px;
+        }
+
+        #numeroPregunta {
+            text-align: center;
+            color: #6b6b6b;
+            font-weight: bold;
+        }
+
+        #puntos {
+            text-align: center;
+            color: #176b3a;
+            font-size: 21px;
+            font-weight: bold;
+            margin: 8px;
+        }
+
+        .barra {
+            width: 100%;
+            height: 12px;
+            background: #dcebdd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0 25px;
+        }
+
+        #progreso {
+            height: 100%;
+            width: 0%;
+            background: #38a169;
+            transition: 0.3s;
+        }
+
+        #pregunta {
+            text-align: center;
+            color: #176b3a;
+            font-size: 25px;
+            margin: 20px 0;
+        }
+
+        .opciones {
+            display: grid;
+            gap: 12px;
+        }
+
+        .opcion {
+            width: 100%;
+            border: 2px solid #c9dfcc;
+            background: #f4faf4;
+            padding: 16px;
+            border-radius: 15px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .opcion:hover {
+            background: #dff2df;
+            transform: translateX(3px);
+        }
+
+        .opcion:disabled {
+            cursor: default;
+        }
+
+        #mensaje {
+            text-align: center;
+            font-size: 19px;
+            font-weight: bold;
+            min-height: 35px;
+            margin-top: 18px;
+        }
+
+        #resultado {
+            display: none;
+            text-align: center;
+            background: #e2f4e5;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        #resultado h3 {
+            color: #176b3a;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        #resultadoTexto {
+            font-size: 19px;
+        }
+
+        /* =========================
+           CAJAS INFORMATIVAS
+        ========================= */
+
+        .caja-verde {
+            background: #e0f2e3;
+            border-left: 6px solid #2e8b57;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .caja-azul {
+            background: #e3f4fa;
+            border-left: 6px solid #2995b3;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .caja-amarilla {
+            background: #fff7d6;
+            border-left: 6px solid #d5a400;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        /* =========================
+           PIE
+        ========================= */
+
+        footer {
+            background: #123d23;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 30px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            header h1 {
+                font-size: 35px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            nav button {
+                font-size: 12px;
+                padding: 9px 11px;
+            }
+
+            .titulo {
+                font-size: 27px;
+            }
+
+            #pregunta {
+                font-size: 21px;
+            }
+
+            #ilustracion svg {
+                width: 260px;
+                height: 200px;
+            }
+        }
+
+    
+        html{scroll-behavior:smooth;}
+        img,svg{max-width:100%;height:auto;}
+        @media (max-width:768px){
+          header{padding:30px 15px;}
+          .seccion{padding:25px 15px;}
+          .intro,.tarjeta,#juego{padding:18px;}
+          .contenedor{grid-template-columns:1fr;}
+          nav{gap:6px;padding:10px;}
+          nav button{flex:1 1 calc(50% - 6px);min-width:130px;}
+          #ilustracion{min-height:180px;}
+          #ilustracion svg{width:220px;height:170px;}
+          .lista{padding-left:18px;}
+        }
+        @media (max-width:420px){
+          nav button{flex:1 1 100%;}
+          header h1{font-size:30px;}
+          #pregunta{font-size:19px;}
+          .boton{width:100%;}
+        }
+
+
+/* ========= RESPONSIVE CELULAR Y COMPUTADOR ========= */
+html{scroll-behavior:smooth;}
+img,svg{max-width:100%;height:auto;}
+iframe{max-width:100%;}
+.contenedor{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:10px;}
+nav button,nav a{flex:1 1 140px;max-width:180px;}
+section{scroll-margin-top:90px;}
+#juego{max-width:700px;margin:auto;}
+.opcion{width:100%;}
+
+@media (max-width:768px){
+  body{font-size:16px;}
+  header{padding:28px 16px;}
+  header h1{font-size:32px;}
+  header p{font-size:16px;}
+  nav button,nav a{flex:1 1 calc(50% - 8px);max-width:none;}
+  .contenedor{grid-template-columns:1fr;}
+  section{padding:18px 15px;}
+  .tarjeta,.intro,#juego{padding:18px;}
+  .icono{font-size:50px;}
+  .boton{width:100%;padding:14px;font-size:17px;}
+  .pregunta{font-size:20px;}
+}
+
+@media (max-width:480px){
+  header h1{font-size:28px;}
+  nav button,nav a{flex:1 1 100%;}
+  .icono{font-size:42px;}
+  .pregunta{font-size:18px;}
+  footer{padding:18px 12px;}
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header>
+
+        <h1>🌱 EcoIET</h1>
+
+        <p>
+            Tecnología y medio ambiente al servicio
+            de nuestra institución
+        </p>
+
+        <p class="subtitulo">
+            Aprende • Participa • Cuida • Transforma
+        </p>
+
+    </header>
+
+
+    <!-- =========================
+         MENÚ
+    ========================== -->
+
+    <nav>
+
+        <button onclick="mostrarSeccion('inicio')">
+            🏠 Inicio
+        </button>
+
+        <button onclick="mostrarSeccion('plantas')">
+            🌿 Plantas
+        </button>
+
+        <button onclick="mostrarSeccion('residuos')">
+            ♻️ Residuos
+        </button>
+
+        <button onclick="mostrarSeccion('agua')">
+            💧 Agua
+        </button>
+
+        <button onclick="mostrarSeccion('energia')">
+            💡 Energía
+        </button>
+
+        <button onclick="mostrarSeccion('reto')">
+            🎮 Eco-Reto
+        </button>
+
+        <button onclick="mostrarSeccion('proyecto')">
+            📚 Proyecto
+        </button>
+
+    </nav>
+
+
+    <!-- =========================
+         INICIO
+    ========================== -->
+
+    <section id="inicio" class="seccion activa">
+
+        <h2 class="titulo">
+            🌎 Bienvenidos a EcoIET
+        </h2>
+
+        <div class="intro">
+
+            <h2>¿Qué es EcoIET?</h2>
+
+            <p>
+                EcoIET es una herramienta digital educativa
+                creada para promover el cuidado del medio
+                ambiente dentro de nuestra institución.
+            </p>
+
+            <p>
+                La página combina información ambiental,
+                recursos interactivos y un juego educativo
+                para que los estudiantes aprendan mediante
+                la tecnología.
+            </p>
+
+        </div>
+
+
+        <div class="caja-verde">
+
+            <h2>🎯 ¿Qué buscamos?</h2>
+
+            <p>
+                Promover hábitos responsables relacionados
+                con la separación de residuos, el cuidado
+                del agua, el ahorro de energía y la protección
+                de las zonas verdes.
+            </p>
+
+        </div>
+
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+
+                <div class="icono">🌱</div>
+
+                <h3>Aprender</h3>
+
+                <p>
+                    Conoce prácticas sencillas para cuidar
+                    nuestro entorno.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">💻</div>
+
+                <h3>Interactuar</h3>
+
+                <p>
+                    Utiliza la tecnología para aprender
+                    de una manera diferente.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🎮</div>
+
+                <h3>Jugar</h3>
+
+                <p>
+                    Pon a prueba tus conocimientos
+                    en el Eco-Reto.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🌎</div>
+
+                <h3>Actuar</h3>
+
+                <p>
+                    Lleva lo aprendido a las acciones
+                    de todos los días.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PLANTAS
+    ========================== -->
+
+    <section id="plantas" class="seccion">
+
+        <h2 class="titulo">
+            🌿 Flora y zonas verdes
+        </h2>
+
+
+        <div class="intro">
+
+            <h2>¿Por qué son importantes las plantas?</h2>
+
+            <p>
+                Las plantas forman parte fundamental de los
+                ecosistemas y contribuyen al equilibrio de los
+                espacios naturales.
+            </p>
+
+            <p>
+                En nuestra institución, las zonas verdes pueden
+                convertirse también en espacios educativos para
+                conocer y valorar la naturaleza.
+            </p>
+
+        </div>
+
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+
+                <div class="icono">🌳</div>
+
+                <h3>Árboles</h3>
+
+                <p>
+                    Proporcionan sombra y ayudan a mejorar
+                    las condiciones de los espacios verdes.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🌺</div>
+
+                <h3>Plantas ornamentales</h3>
+
+                <p>
+                    Aportan valor estético y ayudan a crear
+                    espacios agradables.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🌱</div>
+
+                <h3>Jardines</h3>
+
+                <p>
+                    Pueden utilizarse como espacios para
+                    aprender sobre biodiversidad y cuidado
+                    ambiental.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="caja-verde">
+
+            <h2>🌿 ¿Cómo podemos cuidarlas?</h2>
+
+            <ul class="lista">
+
+                <li>
+                    No arrancar ni maltratar las plantas.
+                </li>
+
+                <li>
+                    No arrojar residuos en las zonas verdes.
+                </li>
+
+                <li>
+                    Evitar pisar los jardines.
+                </li>
+
+                <li>
+                    Informar cuando una planta necesite atención.
+                </li>
+
+                <li>
+                    Mantener limpios los espacios cercanos.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="caja-azul">
+
+            <h2>📱 Idea tecnológica</h2>
+
+            <p>
+                La información sobre las plantas de la institución
+                puede complementarse con fotografías reales y,
+                posteriormente, con códigos QR que permitan
+                consultar información sobre cada especie.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESIDUOS
+    ========================== -->
+
+    <section id="residuos" class="seccion">
+
+        <h2 class="titulo">
+            ♻️ Manejo de residuos
+        </h2>
+
+
+        <div class="intro">
+
+            <h2>Separar para aprovechar</h2>
+
+            <p>
+                La correcta separación de residuos ayuda a
+                mantener los espacios limpios y facilita el
+                aprovechamiento de materiales.
+            </p>
+
+        </div>
+
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+
+                <div class="icono">⚪</div>
+
+                <h3>Recipiente blanco</h3>
+
+                <p>
+                    Residuos aprovechables limpios y secos,
+                    como papel, cartón, plástico, vidrio
+                    y metales.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🟢</div>
+
+                <h3>Recipiente verde</h3>
+
+                <p>
+                    Residuos orgánicos aprovechables,
+                    de acuerdo con el sistema de separación
+                    implementado en la institución.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">⚫</div>
+
+                <h3>Recipiente negro</h3>
+
+                <p>
+                    Residuos no aprovechables.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="caja-verde">
+
+            <h2>♻️ Buenas prácticas</h2>
+
+            <ul class="lista">
+
+                <li>
+                    Depositar cada residuo en el recipiente
+                    correspondiente.
+                </li>
+
+                <li>
+                    Mantener los materiales aprovechables
+                    limpios y secos.
+                </li>
+
+                <li>
+                    Evitar arrojar residuos al suelo.
+                </li>
+
+                <li>
+                    Reducir el consumo innecesario de materiales.
+                </li>
+
+                <li>
+                    Reutilizar materiales cuando sea posible.
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="caja-amarilla">
+
+            <h2>💡 Recuerda</h2>
+
+            <p>
+                Separar los residuos correctamente es una
+                acción sencilla que puede convertirse en
+                un hábito dentro de la comunidad educativa.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         AGUA
+    ========================== -->
+
+    <section id="agua" class="seccion">
+
+        <h2 class="titulo">
+            💧 Cuidado del agua
+        </h2>
+
+
+        <div class="intro">
+
+            <h2>El agua es un recurso esencial</h2>
+
+            <p>
+                El agua es necesaria para la vida y para muchas
+                actividades de nuestra institución. Por eso es
+                importante utilizarla de manera responsable.
+            </p>
+
+        </div>
+
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+
+                <div class="icono">🚰</div>
+
+                <h3>Cierra las llaves</h3>
+
+                <p>
+                    No dejes correr el agua cuando no sea necesaria.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">💧</div>
+
+                <h3>Evita desperdicios</h3>
+
+                <p>
+                    Utiliza solamente la cantidad de agua
+                    necesaria.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🔧</div>
+
+                <h3>Reporta fugas</h3>
+
+                <p>
+                    Informa a un responsable cuando encuentres
+                    una fuga.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🌧️</div>
+
+                <h3>Aprovechamiento</h3>
+
+                <p>
+                    El aprovechamiento del agua lluvia puede
+                    estudiarse como una alternativa para
+                    determinadas actividades.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="caja-azul">
+
+            <h2>💦 ¿Qué podemos hacer en el colegio?</h2>
+
+            <ul class="lista">
+
+                <li>
+                    Cerrar las llaves después de utilizarlas.
+                </li>
+
+                <li>
+                    Informar sobre fugas.
+                </li>
+
+                <li>
+                    Evitar jugar con el agua.
+                </li>
+
+                <li>
+                    Utilizar responsablemente los baños
+                    y lavamanos.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ENERGÍA
+    ========================== -->
+
+    <section id="energia" class="seccion">
+
+        <h2 class="titulo">
+            💡 Uso responsable de la energía
+        </h2>
+
+
+        <div class="intro">
+
+            <h2>Ahorrar energía también es cuidar el ambiente</h2>
+
+            <p>
+                Utilizar responsablemente la electricidad ayuda
+                a evitar consumos innecesarios y fomenta hábitos
+                sostenibles.
+            </p>
+
+        </div>
+
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+
+                <div class="icono">💡</div>
+
+                <h3>Apaga las luces</h3>
+
+                <p>
+                    Apaga las luces cuando no sean necesarias.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">☀️</div>
+
+                <h3>Aprovecha la luz natural</h3>
+
+                <p>
+                    Cuando sea posible, utiliza la iluminación
+                    natural.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">💻</div>
+
+                <h3>Cuida los equipos</h3>
+
+                <p>
+                    Utiliza correctamente los computadores
+                    y demás equipos tecnológicos.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🔌</div>
+
+                <h3>Evita consumos innecesarios</h3>
+
+                <p>
+                    Desconecta o apaga equipos cuando corresponda
+                    y no sean necesarios.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ECO RETO
+    ========================== -->
+
+    <section id="reto" class="seccion">
+
+        <h2 class="titulo">
+            🎮 Eco-Reto Ambiental
+        </h2>
+
+
+        <div class="intro centrado">
+
+            <h2>
+                ¡Demuestra cuánto sabes! 🌎
+            </h2>
+
+            <p>
+                Tendrás 30 situaciones ambientales diferentes.
+                En cada partida aparecerán 10 preguntas seleccionadas
+                de manera aleatoria.
+            </p>
+
+            <p>
+                Cada respuesta correcta vale <strong>10 puntos</strong>.
+            </p>
+
+            <button class="boton" onclick="iniciarJuego()">
+                ▶️ Comenzar Eco-Reto
+            </button>
+
+        </div>
+
+
+        <div id="juego">
+
+            <div id="ilustracion">
+            </div>
+
+            <div id="numeroPregunta">
+                Pregunta 1 de 10
+            </div>
+
+            <div class="barra">
+
+                <div id="progreso">
+                </div>
+
+            </div>
+
+            <div id="puntos">
+                ⭐ Puntos: 0
+            </div>
+
+            <h3 id="pregunta">
+                Pulsa "Comenzar Eco-Reto" para empezar.
+            </h3>
+
+            <div id="opciones" class="opciones">
+            </div>
+
+            <div id="mensaje">
+            </div>
+
+
+            <div id="resultado">
+
+                <h3>
+                    🏆 ¡Eco-Reto terminado!
+                </h3>
+
+                <p id="resultadoTexto">
+                </p>
+
+                <button class="boton" onclick="iniciarJuego()">
+                    🔄 Jugar nuevamente
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PROYECTO
+    ========================== -->
+
+    <section id="proyecto" class="seccion">
+
+        <h2 class="titulo">
+            📚 Nuestro proyecto
+        </h2>
+
+
+        <div class="intro">
+
+            <h2>🎯 Objetivo</h2>
+
+            <p>
+                Utilizar una herramienta digital interactiva
+                para promover la educación ambiental y fomentar
+                acciones responsables dentro de la institución.
+            </p>
+
+        </div>
+
+
+        <div class="intro">
+
+            <h2>💻 Producto tecnológico</h2>
+
+            <p>
+                EcoIET es una página web educativa que reúne
+                información ambiental y un juego interactivo
+                denominado Eco-Reto.
+            </p>
+
+            <p>
+                El recurso puede ser utilizado desde un computador
+                o dispositivo móvil con un navegador web.
+            </p>
+
+        </div>
+
+
+        <div class="intro">
+
+            <h2>🌎 Problemática que aborda</h2>
+
+            <p>
+                El proyecto busca contribuir a la sensibilización
+                frente a situaciones ambientales presentes en
+                el contexto escolar, como el manejo inadecuado
+                de residuos, el desperdicio de agua y energía,
+                el desorden de espacios y la necesidad de
+                fortalecer la conciencia ambiental.
+            </p>
+
+        </div>
+
+
+        <div class="contenedor">
+
+            <div class="tarjeta">
+
+                <div class="icono">💰</div>
+
+                <h3>Bajo costo</h3>
+
+                <p>
+                    Se utilizan herramientas digitales y recursos
+                    disponibles, evitando inversiones innecesarias.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">💻</div>
+
+                <h3>Tecnología</h3>
+
+                <p>
+                    La página integra HTML, CSS y JavaScript
+                    para crear una herramienta interactiva.
+                </p>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <div class="icono">🌱</div>
+
+                <h3>Medio ambiente</h3>
+
+                <p>
+                    Los contenidos promueven el cuidado de los
+                    recursos y los espacios escolares.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="caja-verde">
+
+            <h2>📈 Impacto esperado</h2>
+
+            <p>
+                Se espera que la herramienta ayude a fortalecer
+                los conocimientos ambientales de los estudiantes
+                y motive mejores prácticas en la institución.
+            </p>
+
+        </div>
+
+
+        <div class="caja-azul">
+
+            <h2>🚀 Posibles mejoras futuras</h2>
+
+            <ul class="lista">
+
+                <li>
+                    Agregar fotografías reales de la institución.
+                </li>
+
+                <li>
+                    Incorporar información de las plantas
+                    encontradas en el colegio.
+                </li>
+
+                <li>
+                    Agregar códigos QR en zonas estratégicas.
+                </li>
+
+                <li>
+                    Incorporar nuevos niveles al Eco-Reto.
+                </li>
+
+                <li>
+                    Añadir evidencias del proyecto.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         PIE DE PÁGINA
+    ========================== -->
+
+    <footer>
+
+        <p>
+            🌱 <strong>EcoIET</strong>
+        </p>
+
+        <p>
+            Tecnología al servicio del medio ambiente
+        </p>
+
+        <p>
+            Proyecto tecnológico y ambiental escolar
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+
+        /* =========================
+           NAVEGACIÓN
+        ========================== */
+
+        function mostrarSeccion(id) {
+
+            const secciones =
+                document.querySelectorAll(".seccion");
+
+            secciones.forEach(function(seccion) {
+
+                seccion.classList.remove("activa");
+
+            });
+
+            const seleccion =
+                document.getElementById(id);
+
+            if (seleccion) {
+
+                seleccion.classList.add("activa");
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+
+
+        /* =========================
+           BANCO DE 30 PREGUNTAS
+        ========================== */
+
+        const preguntas = [
+
+            {
+                tipo: "botella",
+                pregunta: "Encuentras una botella plástica limpia en el patio. ¿Qué haces?",
+                opciones: [
+                    "La dejo en el suelo.",
+                    "La deposito en el recipiente correspondiente.",
+                    "La escondo debajo de una mesa."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "agua",
+                pregunta: "Encuentras una llave abierta sin que nadie la esté utilizando. ¿Qué haces?",
+                opciones: [
+                    "La cierro correctamente.",
+                    "La dejo abierta.",
+                    "Juego con el agua."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "energia",
+                pregunta: "Sales del salón y las luces quedan encendidas sin necesidad. ¿Qué haces?",
+                opciones: [
+                    "Enciendo más luces.",
+                    "Las dejo encendidas.",
+                    "Apago las luces si no son necesarias."
+                ],
+                correcta: 2
+            },
+
+            {
+                tipo: "reciclaje",
+                pregunta: "Tienes un recipiente aprovechable limpio y seco. ¿Qué debes hacer?",
+                opciones: [
+                    "Arrojarlo al suelo.",
+                    "Depositarlo correctamente.",
+                    "Romperlo y dejarlo en el patio."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "arbol",
+                pregunta: "¿Cuál es una buena acción para cuidar los árboles de la institución?",
+                opciones: [
+                    "Maltratarlos.",
+                    "Arrancar sus ramas.",
+                    "Evitar dañarlos y cuidar su entorno."
+                ],
+                correcta: 2
+            },
+
+            {
+                tipo: "papel",
+                pregunta: "Encuentras una hoja que todavía puede aprovecharse. ¿Qué puedes hacer?",
+                opciones: [
+                    "Usarla por ambos lados cuando sea posible.",
+                    "Botarla inmediatamente.",
+                    "Romperla y dejarla en el piso."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "computador",
+                pregunta: "Terminas de utilizar un computador. ¿Qué acción es responsable?",
+                opciones: [
+                    "Dejarlo encendido sin necesidad.",
+                    "Apagarlo correctamente cuando corresponda.",
+                    "Golpearlo para apagarlo."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "fuga",
+                pregunta: "Observas una fuga de agua en la institución. ¿Qué debes hacer?",
+                opciones: [
+                    "Ignorarla.",
+                    "Informar a un responsable.",
+                    "Jugar con el agua."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "caneca",
+                pregunta: "Un compañero coloca un residuo en el recipiente equivocado. ¿Qué puedes hacer?",
+                opciones: [
+                    "Explicarle respetuosamente cómo separarlo.",
+                    "Arrojar más residuos allí.",
+                    "No hacer nada."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "planeta",
+                pregunta: "¿Cuál de estas acciones ayuda al ambiente escolar?",
+                opciones: [
+                    "Mantener limpios los espacios.",
+                    "Dejar basura en el patio.",
+                    "Desperdiciar agua."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "jardin",
+                pregunta: "¿Qué debes hacer al caminar cerca de un jardín escolar?",
+                opciones: [
+                    "Pisar las plantas.",
+                    "Respetar y cuidar la zona verde.",
+                    "Arrancar las flores."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "plastico",
+                pregunta: "¿Cuál es una buena práctica para reducir residuos plásticos?",
+                opciones: [
+                    "Utilizar productos desechables innecesariamente.",
+                    "Reutilizar cuando sea posible.",
+                    "Arrojar los plásticos al suelo."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "agua",
+                pregunta: "Cuando te cepillas los dientes, ¿qué práctica ayuda a ahorrar agua?",
+                opciones: [
+                    "Dejar la llave abierta todo el tiempo.",
+                    "Cerrar la llave mientras no necesitas el agua.",
+                    "Abrir otra llave."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "energia",
+                pregunta: "Hay suficiente luz natural en un salón. ¿Qué opción puede ayudar a ahorrar energía?",
+                opciones: [
+                    "Encender todas las luces.",
+                    "Aprovechar la luz natural cuando sea posible.",
+                    "Dejar las luces encendidas toda la jornada."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "papel",
+                pregunta: "¿Qué puedes hacer para reducir el desperdicio de papel?",
+                opciones: [
+                    "Usar solo una cara y botarlo.",
+                    "Utilizar ambas caras cuando sea posible.",
+                    "Arrugarlo sin utilizarlo."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "reciclaje",
+                pregunta: "¿Por qué es importante separar correctamente los residuos?",
+                opciones: [
+                    "Porque facilita su aprovechamiento.",
+                    "Porque hace que haya más basura.",
+                    "Porque permite ensuciar los recipientes."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "arbol",
+                pregunta: "¿Qué puede aportar un árbol a un espacio escolar?",
+                opciones: [
+                    "Sombra y valor ambiental.",
+                    "Más residuos.",
+                    "Desorden."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "basura",
+                pregunta: "Ves un papel en el suelo del salón. ¿Cuál es una acción responsable?",
+                opciones: [
+                    "Dejarlo allí.",
+                    "Arrojar otro papel.",
+                    "Recogerlo y depositarlo correctamente."
+                ],
+                correcta: 2
+            },
+
+            {
+                tipo: "agua",
+                pregunta: "¿Qué debes hacer después de utilizar un lavamanos?",
+                opciones: [
+                    "Dejar correr el agua.",
+                    "Cerrar correctamente la llave.",
+                    "Abrir otra llave."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "energia",
+                pregunta: "Un equipo tecnológico no se está utilizando. ¿Qué es recomendable?",
+                opciones: [
+                    "Mantenerlo encendido sin necesidad.",
+                    "Utilizarlo para nada.",
+                    "Apagarlo correctamente cuando corresponda."
+                ],
+                correcta: 2
+            },
+
+            {
+                tipo: "reciclaje",
+                pregunta: "¿Qué debes evitar al utilizar los recipientes de residuos?",
+                opciones: [
+                    "Separar correctamente.",
+                    "Arrojar residuos al suelo.",
+                    "Mantenerlos en buen estado."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "jardin",
+                pregunta: "¿Qué acción protege las zonas verdes?",
+                opciones: [
+                    "Arrojar residuos allí.",
+                    "Caminar sobre las plantas.",
+                    "Mantenerlas limpias y respetarlas."
+                ],
+                correcta: 2
+            },
+
+            {
+                tipo: "botella",
+                pregunta: "Tienes una botella reutilizable. ¿Qué práctica puede ayudar a reducir residuos?",
+                opciones: [
+                    "Utilizarla varias veces cuando sea adecuado.",
+                    "Botarla después de cada uso.",
+                    "Dejarla tirada."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "fuga",
+                pregunta: "¿Por qué es importante reportar una fuga de agua?",
+                opciones: [
+                    "Para evitar desperdicios.",
+                    "Para desperdiciar más agua.",
+                    "Para mantener la fuga abierta."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "planeta",
+                pregunta: "¿Cuál es una responsabilidad de los estudiantes frente al ambiente escolar?",
+                opciones: [
+                    "Cuidar los espacios comunes.",
+                    "Ensuciarlos.",
+                    "Dañar las zonas verdes."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "papel",
+                pregunta: "Antes de imprimir o utilizar una hoja nueva, ¿qué puedes considerar?",
+                opciones: [
+                    "Si realmente necesitas utilizarla.",
+                    "Imprimir sin necesidad.",
+                    "Botar las hojas disponibles."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "reciclaje",
+                pregunta: "Un residuo aprovechable está limpio y seco. ¿Qué haces?",
+                opciones: [
+                    "Lo arrojo al suelo.",
+                    "Lo deposito en el recipiente correspondiente.",
+                    "Lo dejo debajo del pupitre."
+                ],
+                correcta: 1
+            },
+
+            {
+                tipo: "agua",
+                pregunta: "¿Cuál de estas acciones desperdicia agua?",
+                opciones: [
+                    "Cerrar una llave.",
+                    "Reportar una fuga.",
+                    "Dejar una llave abierta sin necesidad."
+                ],
+                correcta: 2
+            },
+
+            {
+                tipo: "energia",
+                pregunta: "¿Cuál de estas acciones favorece el ahorro de energía?",
+                opciones: [
+                    "Apagar luces innecesarias.",
+                    "Encender luces durante todo el día.",
+                    "Dejar equipos funcionando sin utilizarlos."
+                ],
+                correcta: 0
+            },
+
+            {
+                tipo: "planeta",
+                pregunta: "¿Cuál es el propósito principal de EcoIET?",
+                opciones: [
+                    "Promover prácticas responsables mediante la tecnología.",
+                    "Generar más residuos.",
+                    "Desperdiciar recursos."
+                ],
+                correcta: 0
+            }
+
+        ];
+
+
+        /* =========================
+           VARIABLES
+        ========================== */
+
+        let partida = [];
+
+        let preguntaActual = 0;
+
+        let puntos = 0;
+
+
+        /* =========================
+           ILUSTRACIONES SVG
+        ========================== */
+
+        function ilustracion(tipo) {
+
+            const fondos = `
+                <rect x="20" y="20" width="260" height="180"
+                rx="25" fill="#ffffff"/>
+            `;
+
+            if (tipo === "botella") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <rect x="125" y="65" width="50" height="110"
+                    rx="18" fill="#69b7e8"/>
+                    <rect x="133" y="42" width="34" height="28"
+                    rx="5" fill="#4f94c7"/>
+                    <rect x="137" y="35" width="26" height="10"
+                    rx="3" fill="#397aa8"/>
+                    <path d="M135 100 L165 100"
+                    stroke="#ffffff" stroke-width="5"/>
+                    <text x="150" y="198" text-anchor="middle"
+                    font-size="17" fill="#176b3a">
+                    BOTELLA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "agua" || tipo === "fuga") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <path d="M105 75 H165
+                    V105 H190
+                    C190 105 205 105 205 120
+                    V135"
+                    fill="none"
+                    stroke="#777"
+                    stroke-width="14"
+                    stroke-linecap="round"/>
+                    <path d="M100 75 H170"
+                    stroke="#555"
+                    stroke-width="12"
+                    stroke-linecap="round"/>
+                    <path d="M150 135
+                    C135 155 140 180 150 180
+                    C160 180 165 155 150 135Z"
+                    fill="#39a9e8"/>
+                    <text x="150" y="202"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    AGUA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "energia") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <circle cx="150" cy="95" r="40"
+                    fill="#ffd95a"
+                    stroke="#e0a900"
+                    stroke-width="7"/>
+                    <path d="M135 130 H165
+                    M140 142 H160
+                    M145 153 H155"
+                    stroke="#777"
+                    stroke-width="8"
+                    stroke-linecap="round"/>
+                    <path d="M150 25 V10
+                    M80 45 L68 33
+                    M220 45 L232 33
+                    M70 100 H50
+                    M230 100 H250"
+                    stroke="#e0a900"
+                    stroke-width="7"
+                    stroke-linecap="round"/>
+                    <text x="150" y="195"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    ENERGÍA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "reciclaje") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <circle cx="150" cy="100" r="62"
+                    fill="#dff2df"/>
+                    <path d="M150 45 L180 85 H160
+                    L150 68 L140 85 H120 Z"
+                    fill="#238b50"/>
+                    <path d="M205 115 L155 145 L165 125
+                    L185 115 L165 105 Z"
+                    fill="#238b50"/>
+                    <path d="M95 115 L145 145 L125 145
+                    L115 125 L95 135 Z"
+                    fill="#238b50"/>
+                    <text x="150" y="195"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    RECICLAJE
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "arbol") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <rect x="137" y="115" width="27"
+                    height="65" rx="5" fill="#87552e"/>
+                    <circle cx="150" cy="85" r="48"
+                    fill="#4caf50"/>
+                    <circle cx="115" cy="95" r="30"
+                    fill="#3e9747"/>
+                    <circle cx="185" cy="95" r="30"
+                    fill="#3e9747"/>
+                    <circle cx="150" cy="55" r="30"
+                    fill="#65b85c"/>
+                    <text x="150" y="200"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    ÁRBOL
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "papel") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <path d="M100 45 H175
+                    L200 70 V175
+                    H100 Z"
+                    fill="#ffffff"
+                    stroke="#777"
+                    stroke-width="5"/>
+                    <path d="M175 45 V70 H200"
+                    fill="#e7e7e7"
+                    stroke="#777"
+                    stroke-width="5"/>
+                    <path d="M120 95 H180
+                    M120 115 H180
+                    M120 135 H165"
+                    stroke="#69a77b"
+                    stroke-width="6"
+                    stroke-linecap="round"/>
+                    <text x="150" y="200"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    PAPEL
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "computador") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <rect x="85" y="50" width="130"
+                    height="90" rx="8"
+                    fill="#657784"/>
+                    <rect x="98" y="62" width="104"
+                    height="65" rx="4"
+                    fill="#d9f0f5"/>
+                    <rect x="70" y="145" width="160"
+                    height="10" rx="5"
+                    fill="#59656b"/>
+                    <rect x="125" y="155" width="50"
+                    height="8" rx="4"
+                    fill="#59656b"/>
+                    <text x="150" y="195"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    TECNOLOGÍA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "caneca") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <rect x="100" y="70" width="100"
+                    height="105" rx="12"
+                    fill="#4caf50"/>
+                    <rect x="92" y="58" width="116"
+                    height="18" rx="7"
+                    fill="#296d3c"/>
+                    <path d="M120 105 L135 120
+                    L160 90"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="9"
+                    stroke-linecap="round"/>
+                    <text x="150" y="200"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    CANECA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "planeta") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <circle cx="150" cy="105" r="62"
+                    fill="#55aee8"/>
+                    <path d="M110 85
+                    C120 65 145 70 155 82
+                    C165 95 180 88 195 100
+                    C180 115 175 135 150 140
+                    C125 145 110 120 110 85Z"
+                    fill="#5bb85c"/>
+                    <path d="M75 70
+                    C55 80 55 110 75 125"
+                    fill="none"
+                    stroke="#4caf50"
+                    stroke-width="7"/>
+                    <text x="150" y="195"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    PLANETA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "jardin") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <rect x="70" y="140" width="160"
+                    height="35" rx="10"
+                    fill="#8c603b"/>
+                    <path d="M150 140 V75"
+                    stroke="#398d43"
+                    stroke-width="8"/>
+                    <circle cx="150" cy="65" r="25"
+                    fill="#e66b82"/>
+                    <circle cx="125" cy="90" r="20"
+                    fill="#55ad58"/>
+                    <circle cx="175" cy="90" r="20"
+                    fill="#55ad58"/>
+                    <text x="150" y="200"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    JARDÍN
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "plastico") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <path d="M115 70
+                    C115 55 125 45 140 45
+                    H160
+                    C175 45 185 55 185 70
+                    V160
+                    C185 175 175 180 150 180
+                    C125 180 115 175 115 160 Z"
+                    fill="#74c5ed"
+                    stroke="#397ca4"
+                    stroke-width="5"/>
+                    <path d="M125 90 H175"
+                    stroke="white"
+                    stroke-width="7"/>
+                    <text x="150" y="200"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    PLÁSTICO
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            if (tipo === "basura") {
+
+                return `
+                <svg viewBox="0 0 300 220">
+                    ${fondos}
+                    <path d="M105 80 H195
+                    L185 175 H115 Z"
+                    fill="#777"/>
+                    <rect x="95" y="65" width="110"
+                    height="18" rx="5"
+                    fill="#555"/>
+                    <circle cx="135" cy="115" r="7"
+                    fill="white"/>
+                    <circle cx="165" cy="115" r="7"
+                    fill="white"/>
+                    <path d="M135 145 Q150 155 165 145"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="5"/>
+                    <text x="150" y="200"
+                    text-anchor="middle"
+                    font-size="17"
+                    fill="#176b3a">
+                    LIMPIEZA
+                    </text>
+                </svg>
+                `;
+
+            }
+
+            return `
+            <svg viewBox="0 0 300 220">
+                ${fondos}
+                <circle cx="150" cy="105" r="60"
+                fill="#4caf50"/>
+                <text x="150" y="120"
+                text-anchor="middle"
+                font-size="50">
+                🌱
+                </text>
+            </svg>
+            `;
+
+        }
+
+
+        /* =========================
+           INICIAR JUEGO
+        ========================== */
+
+        function iniciarJuego() {
+
+            partida =
+                [...preguntas]
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 10);
+
+            preguntaActual = 0;
+
+            puntos = 0;
+
+            document.getElementById("resultado").style.display =
+                "none";
+
+            mostrarPregunta();
+
+        }
+
+
+        /* =========================
+           MOSTRAR PREGUNTA
+        ========================== */
+
+        function mostrarPregunta() {
+
+            if (preguntaActual >= partida.length) {
+
+                terminarJuego();
+
+                return;
+
+            }
+
+
+            const pregunta =
+                partida[preguntaActual];
+
+
+            document.getElementById("ilustracion").innerHTML =
+                ilustracion(pregunta.tipo);
+
+
+            document.getElementById("numeroPregunta").innerHTML =
+                "Pregunta " +
+                (preguntaActual + 1) +
+                " de 10";
+
+
+            const porcentaje =
+                ((preguntaActual) / partida.length) * 100;
+
+
+            document.getElementById("progreso").style.width =
+                porcentaje + "%";
+
+
+            document.getElementById("puntos").innerHTML =
+                "⭐ Puntos: " + puntos;
+
+
+            document.getElementById("pregunta").innerHTML =
+                pregunta.pregunta;
+
+
+            const contenedor =
+                document.getElementById("opciones");
+
+
+            contenedor.innerHTML = "";
+
+
+            pregunta.opciones.forEach(function(opcion, indice) {
+
+                const boton =
+                    document.createElement("button");
+
+
+                boton.className =
+                    "opcion";
+
+
+                boton.innerHTML =
+                    String.fromCharCode(65 + indice) +
+                    ". " +
+                    opcion;
+
+
+                boton.onclick = function() {
+
+                    responder(indice);
+
+                };
+
+
+                contenedor.appendChild(boton);
+
+            });
+
+
+            document.getElementById("mensaje").innerHTML =
+                "";
+
+        }
+
+
+        /* =========================
+           RESPONDER
+        ========================== */
+
+        function responder(indice) {
+
+            const pregunta =
+                partida[preguntaActual];
+
+
+            const botones =
+                document.querySelectorAll(".opcion");
+
+
+            botones.forEach(function(boton) {
+
+                boton.disabled = true;
+
+            });
+
+
+            if (indice === pregunta.correcta) {
+
+                puntos += 10;
+
+                document.getElementById("mensaje").innerHTML =
+                    "✅ ¡Correcto! +10 puntos";
+
+            } else {
+
+                document.getElementById("mensaje").innerHTML =
+                    "❌ Respuesta incorrecta. ¡Sigue aprendiendo!";
+
+            }
+
+
+            document.getElementById("puntos").innerHTML =
+                "⭐ Puntos: " + puntos;
+
+
+            setTimeout(function() {
+
+                preguntaActual++;
+
+                mostrarPregunta();
+
+            }, 1100);
+
+        }
+
+
+        /* =========================
+           TERMINAR JUEGO
+        ========================== */
+
+        function terminarJuego() {
+
+            document.getElementById("ilustracion").innerHTML =
+                ilustracion("planeta");
+
+
+            document.getElementById("numeroPregunta").innerHTML =
+                "Juego terminado";
+
+
+            document.getElementById("progreso").style.width =
+                "100%";
+
+
+            document.getElementById("pregunta").innerHTML =
+                "¡Felicitaciones por completar el Eco-Reto!";
+
+
+            document.getElementById("opciones").innerHTML =
+                "";
+
+
+            document.getElementById("mensaje").innerHTML =
+                "";
+
+
+            const resultado =
+                document.getElementById("resultado");
+
+
+            resultado.style.display =
+                "block";
+
+
+            let texto;
+
+
+            if (puntos === 100) {
+
+                texto =
+                    "🌟 ¡Puntuación perfecta! Tienes excelentes conocimientos sobre el cuidado ambiental.";
+
+            }
+
+            else if (puntos >= 80) {
+
+                texto =
+                    "👏 ¡Excelente trabajo! Demuestras muy buenos conocimientos ambientales.";
+
+            }
+
+            else if (puntos >= 60) {
+
+                texto =
+                    "🌱 ¡Muy bien! Tienes buenos conocimientos y puedes seguir mejorando.";
+
+            }
+
+            else if (puntos >= 40) {
+
+                texto =
+                    "💚 Buen comienzo. Sigue aprendiendo y aplicando buenas prácticas ambientales.";
+
+            }
+
+            else {
+
+                texto =
+                    "🌎 No te preocupes. El objetivo es aprender. ¡Inténtalo nuevamente!";
+
+            }
+
+
+            document.getElementById("resultadoTexto").innerHTML =
+
+                "Obtuviste <strong>" +
+                puntos +
+                " puntos de 100</strong>.<br><br>" +
+                texto;
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
